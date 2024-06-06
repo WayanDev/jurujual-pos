@@ -26,7 +26,9 @@
 > Email: super.admin@test.com || Password: 12345678
 
 ## Demo
-![Triangle POS](public/images/screenshot.jpg)
+![image](https://github.com/WayanDev/jurujual-pos/assets/113874200/41abbda5-9d8a-449a-9548-c4e31c1f021a)
+![Screenshot 2024-06-06 134507](https://github.com/WayanDev/jurujual-pos/assets/113874200/425d676b-e0ca-4c54-a527-182244e87bd0)
+
 **Demo Langsung:** akan segera diperbarui
 
 ## Fitur JuruJual POS

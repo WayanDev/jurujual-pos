@@ -1,7 +1,7 @@
 <picture>
     <source srcset="public/images/logo.png"  
             media="(prefers-color-scheme: dark)">
-    <img src="public/images/logo-dark.png" alt="App Logo">
+    <img src="public/images/logo-ungu.png" alt="App Logo">
 </picture>
 
 > **Important Note:** This Project is ready for Production. But use code from main branch only. If you find any bug or have any suggestion please create an Issue.
@@ -29,7 +29,7 @@
 ![Triangle POS](public/images/screenshot.jpg)
 **Live Demo:** will update soon
 
-## Triangle POS Features
+## JuruJual POS Features
 
 - **Products Management & Barcode Printing**
 - **Stock Management**

@@ -1,5 +1,5 @@
 <picture>
-    <source srcset="public/images/logo.png"  
+    <source srcset="public/images/logo-ungu.png"  
             media="(prefers-color-scheme: dark)">
     <img src="public/images/logo-ungu.png" alt="App Logo">
 </picture>

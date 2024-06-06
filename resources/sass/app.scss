@@ -1,0 +1,85 @@
+// CoreUI
+@import '@coreui/coreui/scss/coreui';
+
+// Sidebar Style
+.c-sidebar {
+    background-color: #252525; // Warna latar belakang sidebar
+    color: #ffffff; // Warna teks sidebar
+}
+
+// Sidebar Hover Effect
+.c-sidebar .c-sidebar-nav-link:hover {
+    background-color: #1a1a1a; // Warna latar belakang saat hover
+}
+
+// Active Sidebar Link
+.c-sidebar .c-sidebar-nav-link.c-active,
+.c-sidebar .c-active.c-sidebar-nav-dropdown-toggle {
+    background-color: #007bff; // Warna latar belakang saat aktif
+}
+
+// Sidebar Brand Style
+.c-sidebar-brand {
+    background-color: #007bff; // Warna latar belakang brand
+    color: #ffffff; // Warna teks brand
+}
+
+// Sidebar Brand Hover Effect
+.c-sidebar-brand:hover {
+    background-color: #0056b3; // Warna latar belakang saat hover
+}
+
+// Sidebar Toggle Button Style
+.c-sidebar-minimizer {
+    background-color: #007bff; // Warna latar belakang toggle button
+}
+
+// Sidebar Toggle Button Hover Effect
+.c-sidebar-minimizer:hover {
+    background-color: #0056b3; // Warna latar belakang saat hover
+}
+
+// Button Style
+.btn:not([class*=ghost]):not([class*=link]):not([class*=outline]):not([class*=transparent]) {
+    border: 0;
+    box-shadow: 0 1px 1px 0 rgb(60 75 100 / 14%), 0 2px 1px -1px rgb(60 75 100 / 12%), 0 1px 3px 0 rgb(60 75 100 / 20%);
+}
+
+// Dropzone Style
+.dropzone {
+    border: 2px dashed #3B82F6;
+    border-radius: 5px;
+    background: #DBEAFE;
+}
+
+.dz-preview {
+    background: #EFF6FF !important;
+    border-radius: 20px;
+}
+
+.dz-remove {
+    color: #333;
+}
+
+.dropzone i.bi.bi-cloud-arrow-up {
+    font-size: 5rem;
+    color: #60A5FA;
+}
+
+.dropzone .dz-message {
+    color: rgba(0, 0, 0, .54);
+    font-weight: 500;
+    font-size: initial;
+}
+
+.dropzone .dz-preview .dz-image img {
+    display: block;
+    width: 100%;
+}
+
+// Table Style for Large Devices
+@media (min-width: 992px) {
+    table {
+        width: 100% !important;
+    }
+}

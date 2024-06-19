@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Modules\People\Http\Controllers\CustomersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Customers
     Route::resource('customers', 'CustomersController');
+    Route::post('customers/import', [CustomersController::class, 'import'])->name('customers.import');
     //Suppliers
     Route::resource('suppliers', 'SuppliersController');
 

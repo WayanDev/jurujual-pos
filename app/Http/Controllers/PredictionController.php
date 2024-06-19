@@ -40,7 +40,8 @@ class PredictionController extends Controller
         $predictions = collect($data['Prediction'])->map(function ($item) {
             return [
                 'Product_Line' => $item['Product Line'],
-                'Random_Forest_Regressor' => $item['Random Forest Regressor']
+                'Random_Forest_Regressor' => $item['Predicted Quantity'], // Sesuaikan dengan nama kolom yang dihasilkan oleh Flask
+                'Safe_Stock' => $item['Safe Stock'] // Tambahkan kolom Safe Stock jika diperlukan
             ];
         });
 

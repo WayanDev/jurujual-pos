@@ -2,16 +2,19 @@
 
 namespace Modules\Sale\Http\Controllers;
 
-use Modules\Sale\DataTables\SalesDataTable;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Imports\SalesImport;
+use Illuminate\Http\Request;
+use Modules\Sale\Entities\Sale;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\People\Entities\Customer;
 use Modules\Product\Entities\Product;
-use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Modules\Sale\DataTables\SalesDataTable;
 use Modules\Sale\Http\Requests\StoreSaleRequest;
 use Modules\Sale\Http\Requests\UpdateSaleRequest;
 
@@ -230,4 +233,24 @@ class SaleController extends Controller
 
         return redirect()->route('sales.index');
     }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|mimes:xlsx,csv,xls',
+        ]);
+
+        // Set maximum execution time to 5 minutes (300 seconds)
+        set_time_limit(1000);
+
+        try {
+            Excel::import(new SalesImport, $request->file('import_file'));
+        } catch (\Exception $e) {
+            toast('Error Importing Sales: ' . $e->getMessage(), 'error')->persistent(true)->autoClose(2000000);
+        }
+
+        return redirect()->route('sales.index')->with('success', 'Sales imported successfully.');
+    }
+
+
 }

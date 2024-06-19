@@ -2,12 +2,14 @@
 
 namespace Modules\People\Http\Controllers;
 
-use Modules\People\DataTables\CustomersDataTable;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use App\Imports\CustomerImport;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\People\Entities\Customer;
+use Illuminate\Contracts\Support\Renderable;
+use Modules\People\DataTables\CustomersDataTable;
 
 class CustomersController extends Controller
 {
@@ -102,5 +104,16 @@ class CustomersController extends Controller
         toast('Customer Deleted!', 'warning');
 
         return redirect()->route('customers.index');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|mimes:xlsx,csv,xls',
+        ]);
+
+        Excel::import(new CustomerImport, $request->file('import_file'));
+
+        return redirect()->route('customers.index')->with('success', 'Customers imported successfully.');
     }
 }

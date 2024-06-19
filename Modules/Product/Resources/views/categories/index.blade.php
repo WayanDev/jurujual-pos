@@ -26,6 +26,11 @@
                             Add Category <i class="bi bi-plus"></i>
                         </button>
 
+                        <!-- Import Button -->
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#importModal">
+                            Import Categories <i class="bi bi-upload"></i>
+                        </button>
+
                         <hr>
 
                         <div class="table-responsive">
@@ -39,6 +44,33 @@
 
     <!-- Create Modal -->
     @include('product::includes.category-modal')
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Categories</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('product-categories.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">Choose Excel file</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('page_scripts')

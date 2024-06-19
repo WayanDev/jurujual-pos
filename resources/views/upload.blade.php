@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>Product Line</th>
                                         <th>Random Forest Regressor</th>
+                                        <th>Safe Stock</th> {{-- Tambahkan kolom Safe Stock --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,7 @@
                                         <tr>
                                             <td>{{ $prediction['Product_Line'] }}</td>
                                             <td>{{ $prediction['Random_Forest_Regressor'] }}</td>
+                                            <td>{{ $prediction['Safe_Stock'] }}</td> {{-- Tambahkan kolom Safe Stock --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

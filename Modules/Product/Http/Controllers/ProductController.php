@@ -2,16 +2,18 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use Modules\Product\DataTables\ProductDataTable;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Upload\Entities\Upload;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Product\Entities\Product;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Support\Renderable;
+use Modules\Product\DataTables\ProductDataTable;
 use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
-use Modules\Upload\Entities\Upload;
+use App\Imports\ProductImport;
 
 class ProductController extends Controller
 {
@@ -92,6 +94,23 @@ class ProductController extends Controller
         $product->delete();
 
         toast('Product Deleted!', 'warning');
+
+        return redirect()->route('products.index');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'excelFile' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new ProductImport, $request->file('excelFile'));
+
+            toast('Products Imported Successfully!', 'success');
+        } catch (\Exception $e) {
+            toast('Error Importing Products: ' . $e->getMessage(), 'error');
+        }
 
         return redirect()->route('products.index');
     }

@@ -2,11 +2,13 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use App\Imports\CategoriesImport;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Product\Entities\Category;
+use Illuminate\Contracts\Support\Renderable;
 use Modules\Product\DataTables\ProductCategoriesDataTable;
 
 class CategoriesController extends Controller
@@ -81,4 +83,16 @@ class CategoriesController extends Controller
 
         return redirect()->route('product-categories.index');
     }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+
+        Excel::import(new CategoriesImport, $request->file('file'));
+
+        return redirect()->route('product-categories.index')->with('success', 'Categories imported successfully.');
+    }
+
 }

@@ -19,12 +19,21 @@ class Sale extends Model
         return $this->hasMany(SalePayment::class, 'sale_id', 'id');
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
         static::creating(function ($model) {
-            $number = Sale::max('id') + 1;
-            $model->reference = make_reference_id('SL', $number);
+            // Generate the reference ID before the model is saved
+            if (empty($model->reference)) {
+                $model->reference = 'SL-' . str_pad($model->id, 5, '0', STR_PAD_LEFT);
+            }
+        });
+
+        static::created(function ($model) {
+            // Ensure reference is properly formatted after creation
+            $model->reference = 'SL-' . str_pad($model->id, 5, '0', STR_PAD_LEFT);
+            $model->save();
         });
     }
 

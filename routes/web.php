@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PredictionController;
 
 /*
@@ -32,5 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/prediction', [PredictionController::class, 'index'])->name('prediction.index');
 Route::post('/prediction', [PredictionController::class, 'uploadFile']);
+
+
+
 
 

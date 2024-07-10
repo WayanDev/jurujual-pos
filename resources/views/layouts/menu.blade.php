@@ -4,6 +4,55 @@
     </a>
 </li>
 
+{{-- @can('access_prediksi_penjualan')
+<li class="c-sidebar-nav-item {{ request()->routeIs('prediksi-penjualan*') ? 'c-show' : '' }}">
+    <a class="c-sidebar-nav-link {{ request()->routeIs('prediksi-penjualan*') ? 'c-active' : '' }}" href="{{ route('prediksi-penjualan') }}">
+        <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi Penjualan
+    </a>
+</li>
+@endcan
+
+@can('access_prediksi_stok')
+<li class="c-sidebar-nav-item {{ request()->routeIs('prediksi-stok*') ? 'c-show' : '' }}">
+    <a class="c-sidebar-nav-link {{ request()->routeIs('prediksi-stok*') ? 'c-active' : '' }}" href="{{ route('prediksi-stok') }}">
+        <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi Stok
+    </a>
+</li>
+@endcan --}}
+
+@can('access_prediksi_penjualan|access_prediksi_stok')
+    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('prediksi-penjualan*') || request()->routeIs('prediksi-stok*') ? 'c-show' : '' }}">
+        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi
+        </a>
+        <ul class="c-sidebar-nav-dropdown-items">
+            @can('access_prediksi_penjualan')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link {{ request()->routeIs('prediksi-penjualan*') ? 'c-active' : '' }}" href="{{ route('prediksi-penjualan') }}">
+                        <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi Penjualan
+                    </a>
+                </li>
+            @endcan
+            @can('access_prediksi_stok')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link {{ request()->routeIs('prediksi-stok*') ? 'c-active' : '' }}" href="{{ route('prediksi-stok') }}">
+                        <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi Stok
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </li>
+@endcan
+
+
+{{-- @can('access_prediksi')
+<li class="c-sidebar-nav-item {{ request()->routeIs('prediksi*') ? 'c-show' : '' }}">
+    <a class="c-sidebar-nav-link {{ request()->routeIs('prediksi*') ? 'c-active' : '' }}" href="{{ route('prediksi') }}">
+        <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediksi
+    </a>
+</li>
+@endcan --}}
+
 @can('access_products')
 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*') || request()->routeIs('product-categories.*') ? 'c-show' : '' }}">
     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
@@ -299,11 +348,11 @@
 @endcan
 
 @can('access_currencies|access_settings')
-    <li class="c-sidebar-nav-item {{ request()->routeIs('prediction*') ? 'c-show' : '' }}">
+    {{-- <li class="c-sidebar-nav-item {{ request()->routeIs('prediction*') ? 'c-show' : '' }}">
         <a class="c-sidebar-nav-link {{ request()->routeIs('prediction*') ? 'c-active' : '' }}" href="{{ route('prediction.index') }}">
             <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Prediction
         </a>
-    </li>
+    </li> --}}
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('currencies*') || request()->routeIs('units*') ? 'c-show' : '' }}">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
             <i class="c-sidebar-nav-icon bi bi-gear" style="line-height: 1;"></i> Settings

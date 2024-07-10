@@ -16,14 +16,25 @@ class SalesImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        //dd($row);
         // Convert Excel date to PHP date format
         $date = Carbon::createFromTimestamp(($row['tanggal'] - 25569) * 86400)->format('Y-m-d');
 
         // Find or create customer
-        $customer = Customer::firstOrCreate(['customer_name' => $row['pembeli']]);
+        $customer = Customer::firstOrCreate(
+            ['customer_name' => $row['pembeli']],
+            [
+                'customer_email' => $row['pembeli'] . '@gmail.com',
+                'customer_phone' => 1234567890,
+                'city' => 'Semarang',
+                'country' => 'Indonesia',
+                'address' => 'Jl. Prof. Soedarto, Tembalang, Kota Semarang, Jawa Tengah.',
+            ]
+        );
+
 
         // Calculate payment status based on due amount
-        $total_amount = intval($row['qty']) * intval($row['hargajual']) * (1 - intval($row['diskon']) / 100);
+        $total_amount = (int) $row['subtotal'];
         $paid_amount = (int) $row['subtotal'];
         $due_amount = $total_amount - $paid_amount;
 
@@ -42,8 +53,8 @@ class SalesImport implements ToModel, WithHeadingRow
             'customer_name' => $customer->customer_name,
             'tax_percentage' => 0,
             'tax_amount' => 0,
-            'discount_percentage' => (int) $row['diskon'],
-            'discount_amount' => (int) $row['diskon'],
+            'discount_percentage' => 0,
+            'discount_amount' => 0,
             'shipping_amount' => 0,
             'total_amount' => $total_amount,
             'paid_amount' => $paid_amount,
@@ -67,7 +78,7 @@ class SalesImport implements ToModel, WithHeadingRow
             $product = Product::create([
                 'product_code' => $row['kode_barang'],
                 'product_name' => $row['nama_barang'],
-                'product_price' => intval($row['hargajual']),  // You might need to add more fields as per your requirement
+                'product_price' => intval($row['harga_jual']),  // You might need to add more fields as per your requirement
             ]);
         }
 
@@ -78,10 +89,10 @@ class SalesImport implements ToModel, WithHeadingRow
             'product_name' => $product->product_name,
             'product_code' => $product->product_code,
             'quantity' => intval($row['qty']),
-            'price' => intval($row['hargajual']),
-            'unit_price' => intval($row['hargajual']),
+            'price' => intval($row['harga_jual']),
+            'unit_price' => intval($row['harga_jual']),
             'sub_total' => intval($row['subtotal']),
-            'product_discount_amount' => (int) $row['diskon'],
+            'product_discount_amount' => 0,
             'product_discount_type' => 'fixed',
             'product_tax_amount' => 0,
         ]);

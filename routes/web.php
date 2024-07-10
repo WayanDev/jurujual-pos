@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PrediksiController;
 use App\Http\Controllers\PredictionController;
+use App\Http\Controllers\SalesPredictionController;
+use App\Http\Controllers\StockPredictionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +34,21 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('payment-flow.chart');
 });
 
-Route::get('/prediction', [PredictionController::class, 'index'])->name('prediction.index');
-Route::post('/prediction', [PredictionController::class, 'uploadFile']);
+// Route Prediksi Penjualan
+Route::get('/prediksi-penjualan', [SalesPredictionController::class, 'index'])->name('prediksi-penjualan');
+Route::get('/prediksi-penjualan', [SalesPredictionController::class, 'predictSales'])->name('prediksi-penjualan');
+Route::post('/train-model-penjualan', [SalesPredictionController::class, 'trainModel'])->name('train-model-penjualan');
+Route::post('/reset-penjualan', [SalesPredictionController::class, 'reset'])->name('reset-penjualan');
+
+Route::get('/prediksi-stok', [StockPredictionController::class, 'index'])->name('prediksi-stok');
+Route::get('/prediksi-stok', [StockPredictionController::class, 'predictStock'])->name('prediksi-stok');
+Route::post('/train-model-stok', [StockPredictionController::class, 'trainStockModel'])->name('train-model-stok');
+Route::post('/reset-stok', [StockPredictionController::class, 'resetStockPredictions'])->name('reset-stok');
+
+
+
+
+
 
 
 

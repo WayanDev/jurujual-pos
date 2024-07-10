@@ -16,7 +16,7 @@ class ProductImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        // dd($row); // Uncomment for debugging
+        //dd($row); // Uncomment for debugging
 
         // Create or find the category based on 'kategori' column from the imported data
         $category = Category::firstOrCreate(['category_name' => $row['kategori']]);
@@ -26,9 +26,12 @@ class ProductImport implements ToModel, WithHeadingRow
             'category_id' => $category->id,
             'product_name' => $row['nama_barang'],
             'product_code' => $row['kode_barang'],
-            'product_quantity' => $row['stok'],
+            'product_quantity' => $row['stock'],
+            'product_cost' => $row['harga_beli'],
             'product_price' => $row['harga_jual'],
             'product_unit' => $row['satuan'],
+            'product_barcode_symbology' => 'EAN13',
+            'product_stock_alert' => 0,
         ]);
     }
 }

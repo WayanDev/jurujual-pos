@@ -10,6 +10,7 @@
     <link rel="icon" href="{{ asset('images/icon-jj.png') }}">
 
     @include('includes.main-css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="c-app">

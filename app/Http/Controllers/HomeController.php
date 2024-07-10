@@ -74,16 +74,21 @@ class HomeController extends Controller
     }
 
 
-    public function paymentChart() {
+    public function paymentChart()
+    {
         abort_if(!request()->ajax(), 404);
 
+        // Inisialisasi array bulan dari Januari hingga Desember 2023
         $dates = collect();
-        foreach (range(-11, 0) as $i) {
-            $date = Carbon::now()->addMonths($i)->format('m-Y');
-            $dates->put($date, 0);
+        for ($year = 2023; $year <= 2024; $year++) {
+            for ($month = 1; $month <= 12; $month++) {
+                $date = Carbon::create($year, $month, 1)->format('m-Y');
+                $dates->put($date, 0);
+            }
         }
 
-        $date_range = Carbon::today()->subYear()->format('Y-m-d');
+        // Ubah rentang tanggal untuk mencakup data dari Januari hingga Desember 2023
+        $date_range = '2023-01-01'; // Ganti sesuai dengan tanggal mulai data penjualan Anda
 
         $sale_payments = SalePayment::where('date', '>=', $date_range)
             ->select([
@@ -125,23 +130,23 @@ class HomeController extends Controller
             ->groupBy('month')->orderBy('month')
             ->get()->pluck('amount', 'month');
 
+        // Gabungkan nilai-nilai pembayaran
         $payment_received = array_merge_numeric_values($sale_payments, $purchase_return_payments);
         $payment_sent = array_merge_numeric_values($purchase_payments, $sale_return_payments, $expenses);
 
+        // Gabungkan hasil dengan tanggal inisialisasi
         $dates_received = $dates->merge($payment_received);
         $dates_sent = $dates->merge($payment_sent);
 
+        // Konversi hasil ke dalam format array untuk grafik
         $received_payments = [];
         $sent_payments = [];
         $months = [];
 
-        foreach ($dates_received as $key => $value) {
-            $received_payments[] = $value;
+        foreach ($dates as $key => $value) {
             $months[] = $key;
-        }
-
-        foreach ($dates_sent as $key => $value) {
-            $sent_payments[] = $value;
+            $received_payments[] = $dates_received->get($key, 0);
+            $sent_payments[] = $dates_sent->get($key, 0);
         }
 
         return response()->json([
@@ -150,6 +155,27 @@ class HomeController extends Controller
             'months' => $months,
         ]);
     }
+
+    /**
+     * Helper function to merge numeric values by keys
+     */
+    function array_merge_numeric_values(...$arrays)
+    {
+        $merged = [];
+
+        foreach ($arrays as $array) {
+            foreach ($array as $key => $value) {
+                if (isset($merged[$key])) {
+                    $merged[$key] += $value;
+                } else {
+                    $merged[$key] = $value;
+                }
+            }
+        }
+
+        return $merged;
+    }
+
 
     public function salesChartData() {
         $dates = collect();

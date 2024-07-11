@@ -20,6 +20,11 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if (isset($error))
+            <div class="alert alert-danger mt-1" id="errorAlert">
+                {{ $error }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 @include('utils.alerts')
@@ -138,6 +143,16 @@
         document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function () {
                 var alert = document.getElementById('statusAlert');
+                if (alert) {
+                    alert.style.display = 'none';
+                }
+            }, 3000);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                var alert = document.getElementById('errorAlert');
                 if (alert) {
                     alert.style.display = 'none';
                 }

@@ -21,39 +21,46 @@ class StockPredictionController extends Controller
         $choice = $request->input('choice');
         $years = $request->input('years');
 
-        $response = Http::timeout(300)->post($this->apiBaseUrl . '/predict-stok', [
-            'choice' => $choice,
-            'years' => $years,
-        ]);
+        try {
+            $response = Http::timeout(300)->post($this->apiBaseUrl . '/predict-stok', [
+                'choice' => $choice,
+                'years' => $years,
+            ]);
 
-        if ($response->successful()) {
-            $predictions = $response->json()['predictions'];
-            return $dataTable->with('data', collect($predictions))->render('predictions-stok.index');
-        } else {
-            return $dataTable->with('data', collect([]))->render('predictions-stok.index', ['error' => 'Gagal mengambil data prediksi.']);
+            if ($response->successful()) {
+                $predictions = $response->json()['predictions'];
+                return $dataTable->with('data', collect($predictions))->render('predictions-stok.index');
+            } else {
+                return $dataTable->with('data', collect([]))->render('predictions-stok.index', ['error' => 'Gagal mengambil data prediksi.']);
+            }
+        } catch (\Exception $e) {
+            return $dataTable->with('data', collect([]))->render('predictions-stok.index', ['error' => 'Server Machine Learning Belum Berjalan.']);
         }
     }
 
-
     public function trainStockModel()
     {
-        // Kirim permintaan POST ke endpoint Flask '/train-stok'
-        $response = Http::post($this->apiBaseUrl . '/train-stok');
+        try {
+            $response = Http::post($this->apiBaseUrl . '/train-stok');
 
-        if ($response->successful()) {
-            $evaluation = $response->json()['evaluation'];
-            return redirect()->back()->with('status', 'Model stok berhasil dilatih.')->with('evaluation', $evaluation);
-        } else {
-            return redirect()->back()->with('status', 'Gagal melatih model stok.');
+            if ($response->successful()) {
+                $evaluation = $response->json()['evaluation'];
+                return redirect()->back()->with('status', 'Model stok berhasil dilatih.')->with('evaluation', $evaluation);
+            } else {
+                return redirect()->back()->with('status', 'Gagal melatih model stok.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('status', 'Server Machine Learning Belum Berjalan.');
         }
     }
 
     public function resetStockPredictions()
     {
-        // Kirim permintaan reset ke Flask
-        $resetResponse = Http::post($this->apiBaseUrl . '/reset-stok');
-
-        // Redirect kembali ke halaman prediksi dengan pesan status
-        return redirect()->route('prediksi-stok')->with('status', 'Hasil prediksi stok berhasil di-reset.');
+        try {
+            $resetResponse = Http::post($this->apiBaseUrl . '/reset-stok');
+            return redirect()->route('prediksi-stok')->with('status', 'Hasil prediksi stok berhasil di-reset.');
+        } catch (\Exception $e) {
+            return redirect()->route('prediksi-stok')->with('status', 'Server Machine Learning Belum Berjalan.');
+        }
     }
 }

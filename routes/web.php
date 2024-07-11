@@ -34,15 +34,22 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('payment-flow.chart');
 });
 
+// Route Training Penjualan
+Route::get('/train-model-penjualan', [SalesPredictionController::class, 'showTrainForm'])->name('train-penjualan');
+Route::post('/train-model-penjualan', [SalesPredictionController::class, 'trainModel'])->name('train-model-penjualan');
+Route::delete('/training-histories/{id}', [SalesPredictionController::class, 'deleteTrainingHistory'])->name('delete-training-history');
+
 // Route Prediksi Penjualan
 Route::get('/prediksi-penjualan', [SalesPredictionController::class, 'index'])->name('prediksi-penjualan');
 Route::get('/prediksi-penjualan', [SalesPredictionController::class, 'predictSales'])->name('prediksi-penjualan');
-Route::post('/train-model-penjualan', [SalesPredictionController::class, 'trainModel'])->name('train-model-penjualan');
 Route::post('/reset-penjualan', [SalesPredictionController::class, 'reset'])->name('reset-penjualan');
 
+// Route Training Stok
+Route::get('/train-model-stok', [StockPredictionController::class, 'showTrainFormStok'])->name('train-stok');
+Route::post('/train-model-stok', [StockPredictionController::class, 'trainStockModel'])->name('train-model-stok');
+// Route Prediksi Stok
 Route::get('/prediksi-stok', [StockPredictionController::class, 'index'])->name('prediksi-stok');
 Route::get('/prediksi-stok', [StockPredictionController::class, 'predictStock'])->name('prediksi-stok');
-Route::post('/train-model-stok', [StockPredictionController::class, 'trainStockModel'])->name('train-model-stok');
 Route::post('/reset-stok', [StockPredictionController::class, 'resetStockPredictions'])->name('reset-stok');
 
 

@@ -8,6 +8,10 @@ use App\DataTables\StockPredictionsDataTable;
 
 class StockPredictionController extends Controller
 {
+    public function showTrainFormStok()
+    {
+        return view('predictions-stok.train');
+    }
     private $apiBaseUrl = 'http://127.0.0.1:5000'; // Ganti dengan URL Flask API Anda
 
     public function index()
@@ -58,9 +62,9 @@ class StockPredictionController extends Controller
     {
         try {
             $resetResponse = Http::post($this->apiBaseUrl . '/reset-stok');
-            return redirect()->route('prediksi-stok')->with('status', 'Hasil prediksi stok berhasil di-reset.');
+            return redirect()->route('train-model-penjualan')->with('status', 'Hasil prediksi stok berhasil di-reset.');
         } catch (\Exception $e) {
-            return redirect()->route('prediksi-stok')->with('status', 'Server Machine Learning Belum Berjalan.');
+            return redirect()->route('train-model-penjualan')->with('status', 'Server Machine Learning Belum Berjalan.');
         }
     }
 }

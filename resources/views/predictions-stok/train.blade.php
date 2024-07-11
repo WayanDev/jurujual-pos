@@ -30,7 +30,7 @@
                 @include('utils.alerts')
             </div>
             <div class="col-12">
-                {{-- <div class="card">
+                <div class="card">
                     <div class="card-body">
                         <div class="mt-1">
                             <form id="trainForm" action="{{ route('train-model-stok') }}" method="POST" style="display: inline;">
@@ -61,50 +61,12 @@
                             <p>Belum ada hasil evaluasi yang tersedia.</p>
                         @endif
                     </div>
-                </div> --}}
-                <div class="card">
-                    <div class="card-body">
-                        <form id="predictForm" action="{{ route('prediksi-stok') }}" method="GET">
-                            @csrf
-                            <div class="form-group">
-                                <label for="choice">Periode Stok Opname</label>
-                                <select class="form-control" id="choice" name="choice">
-                                    <option value="">-Pilih Periode-</option>
-                                    <option value="1">Januari - Juni</option>
-                                    <option value="2">Juli - Desember</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="years">Tahun Prediksi</label>
-                                <select class="form-control" id="years" name="years">
-                                    <option value="">-Pilih Tahun-</option>
-                                    @php
-                                    $currentYear = date('Y');
-                                    $nextFiveYears = range($currentYear, $currentYear + 5);
-                                    @endphp
-                                    @foreach ($nextFiveYears as $year)
-                                        <option value="{{ $year }}">{{ $year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <button type="submit" id="prediksiButton" class="btn btn-primary">Prediksi Stok</button>
-                        </form>
-
-                        <hr>
-
-                        <h1>Prediksi Stok</h1>
-                        <div class="table-responsive">
-                            {!! $dataTable->table() !!}
-                        </div>
-
-                    </div>
                 </div>
-
             </div>
 
         </div>
     </div>
-    {{-- <script>
+    <script>
         document.getElementById('trainButton').addEventListener('click', function() {
             Swal.fire({
                 title: 'Training Model',
@@ -117,24 +79,9 @@
 
             document.getElementById('trainForm').submit();
         });
-    </script> --}}
-
-    <script>
-        document.getElementById('prediksiButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Prediksi Stok',
-                html: 'Mohon tunggu sampai proses prediksi selesai...',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
-            document.getElementById('predictForm').submit();
-        });
     </script>
 
-    {{-- <script>
+    <script>
         document.getElementById('resetButton').addEventListener('click', function() {
             Swal.fire({
                 title: 'Reset Model',
@@ -147,7 +94,7 @@
 
             document.getElementById('resetForm').submit();
         });
-    </script> --}}
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -171,6 +118,3 @@
     </script>
 @endsection
 
-@push('page_scripts')
-    {!! $dataTable->scripts() !!}
-@endpush

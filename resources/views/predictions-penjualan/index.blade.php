@@ -30,7 +30,7 @@
                 @include('utils.alerts')
             </div>
             <div class="col-12">
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <form id="trainForm" action="{{ route('train-model-penjualan') }}" method="POST" style="display: inline;">
                             @csrf
@@ -60,7 +60,7 @@
                             <p>Belum ada hasil evaluasi yang tersedia.</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
                 <div class="card">
                     <div class="card-body">
 
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         document.getElementById('trainButton').addEventListener('click', function() {
             Swal.fire({
                 title: 'Training Model',
@@ -107,7 +107,7 @@
 
             document.getElementById('trainForm').submit();
         });
-    </script>
+    </script> --}}
 
     <script>
         document.getElementById('prediksiButton').addEventListener('click', function() {
@@ -124,7 +124,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         document.getElementById('resetButton').addEventListener('click', function() {
             Swal.fire({
                 title: 'Reset Model',
@@ -137,7 +137,7 @@
 
             document.getElementById('resetForm').submit();
         });
-    </script>
+    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

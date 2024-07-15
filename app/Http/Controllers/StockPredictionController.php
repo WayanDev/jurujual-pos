@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TrainingHistoryStok;
 use Illuminate\Support\Facades\Http;
 use App\DataTables\StockPredictionsDataTable;
 
@@ -10,8 +11,21 @@ class StockPredictionController extends Controller
 {
     public function showTrainFormStok()
     {
-        return view('predictions-stok.train');
+        $trainingHistoriesStok = TrainingHistoryStok::orderByDesc('training_time')->paginate(10);
+        return view('predictions-stok.train', compact('trainingHistoriesStok'));
     }
+    public function deleteTrainingHistoryStok($id)
+    {
+        try {
+            $history = TrainingHistoryStok::findOrFail($id);
+            $history->delete();
+
+            return redirect()->route('train-model-stok')->with('status', 'History training berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('train-model-stok')->with('status', 'Gagal menghapus history training.');
+        }
+    }
+
     private $apiBaseUrl = 'http://127.0.0.1:5000'; // Ganti dengan URL Flask API Anda
 
     public function index()

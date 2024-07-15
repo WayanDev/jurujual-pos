@@ -47,6 +47,7 @@ Route::post('/reset-penjualan', [SalesPredictionController::class, 'reset'])->na
 // Route Training Stok
 Route::get('/train-model-stok', [StockPredictionController::class, 'showTrainFormStok'])->name('train-stok');
 Route::post('/train-model-stok', [StockPredictionController::class, 'trainStockModel'])->name('train-model-stok');
+Route::delete('/training-histories-stok/{id}', [StockPredictionController::class, 'deleteTrainingHistoryStok'])->name('delete-training-history-stok');
 // Route Prediksi Stok
 Route::get('/prediksi-stok', [StockPredictionController::class, 'index'])->name('prediksi-stok');
 Route::get('/prediksi-stok', [StockPredictionController::class, 'predictStock'])->name('prediksi-stok');

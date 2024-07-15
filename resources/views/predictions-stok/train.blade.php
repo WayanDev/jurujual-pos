@@ -61,11 +61,92 @@
                             <p>Belum ada hasil evaluasi yang tersedia.</p>
                         @endif
                     </div>
+                    <div class="card-body">
+                        <h1>Histori Training Stok</h1>
+                        <div class="table-responsive">
+                            <table id="trainingHistoriesStokTable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Waktu Training</th>
+                                        <th>Periode Penjualan</th>
+                                        <th>Versi Model</th>
+                                        {{-- <th>Hasil Evaluasi</th> --}}
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($trainingHistoriesStok as $history)
+                                        <tr>
+                                            <td>{{ $history->training_time }}</td>
+                                            <td>{{ $history->start_year }}-{{ $history->end_year }}</td>
+                                            <td>{{ $history->model_version }}</td>
+                                            {{-- <td>
+                                                <ul>
+                                                    <li>MSE Training: {{ $history->training_result['Training']['MSE'] }}</li>
+                                                    <li>RMSE Training: {{ $history->training_result['Training']['RMSE'] }}</li>
+                                                    <li>R-squared Training (R²): {{ $history->training_result['Training']['R2'] }}</li>
+                                                </ul>
+                                                <ul>
+                                                    <li>MSE Testing: {{ $history->training_result['Testing']['MSE'] }}</li>
+                                                    <li>RMSE Testing: {{ $history->training_result['Testing']['RMSE'] }}</li>
+                                                    <li>R-squared Testing (R²): {{ $history->training_result['Testing']['R2'] }}</li>
+                                                </ul>
+                                            </td> --}}
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDelete{{ $history->id }}">
+                                                    Hapus
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="confirmDelete{{ $history->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel{{ $history->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="confirmDeleteLabel{{ $history->id }}">Konfirmasi Hapus</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Apakah Anda yakin ingin menghapus history training ini?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                <form action="{{ route('delete-training-history-stok', $history->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{ $trainingHistoriesStok->links() }}
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#trainingHistoriesStokTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
     <script>
         document.getElementById('trainButton').addEventListener('click', function() {
             Swal.fire({

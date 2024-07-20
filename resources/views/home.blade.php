@@ -20,13 +20,13 @@
                         </div>
                         <div>
                             <div class="text-value text-primary">{{ format_currency($revenue) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Revenue</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">PENDAPATAN</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            {{-- <div class="col-md-6 col-lg-3">
                 <div class="card border-0">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-warning p-4 mfe-3 rounded-left">
@@ -38,9 +38,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-6 col-lg-3">
+            {{-- <div class="col-md-6 col-lg-3">
                 <div class="card border-0">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-success p-4 mfe-3 rounded-left">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="col-md-6 col-lg-3">
                 <div class="card border-0">
@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             <div class="text-value text-info">{{ format_currency($profit) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Profit</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">KEUNTUNGAN</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="col-lg-7">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header">
-                        Sales & Purchases of Last 7 Days
+                        Penjualan & Pembelian 7 Hari Terakhir
                     </div>
                     <div class="card-body">
                         <canvas id="salesPurchasesChart"></canvas>
@@ -106,7 +106,7 @@
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header">
-                        Monthly Cash Flow (Payment Sent & Received)
+                        Arus Kas Bulanan (Pembayaran Dikirim & Diterima)
                     </div>
                     <div class="card-body">
                         <canvas id="paymentChart"></canvas>

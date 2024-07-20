@@ -9,8 +9,8 @@
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-        <li class="breadcrumb-item active">Categories</li>
+        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produk</a></li>
+        <li class="breadcrumb-item active">Kategori</li>
     </ol>
 @endsection
 
@@ -23,12 +23,12 @@
                     <div class="card-body">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryCreateModal">
-                            Add Category <i class="bi bi-plus"></i>
+                            Tambah Kategori <i class="bi bi-plus"></i>
                         </button>
 
                         <!-- Import Button -->
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#importModal">
-                            Import Categories <i class="bi bi-upload"></i>
+                            Import Kategori <i class="bi bi-upload"></i>
                         </button>
 
                         <hr>
@@ -50,7 +50,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel">Import Categories</h5>
+                    <h5 class="modal-title" id="importModalLabel">Import Kategori</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -50,11 +50,13 @@
                                 <li>MSE Training: {{ $evaluation['Training']['MSE'] }}</li>
                                 <li>RMSE Training: {{ $evaluation['Training']['RMSE'] }}</li>
                                 <li>R-squared Training (R²): {{ $evaluation['Training']['R2'] }}</li>
+                                <li>MAPE Training: {{ $evaluation['Training']['MAPE'] }}</li>
                             </ul>
                             <ul>
                                 <li>MSE Testing: {{ $evaluation['Testing']['MSE'] }}</li>
                                 <li>RMSE Testing: {{ $evaluation['Testing']['RMSE'] }}</li>
                                 <li>R-squared Testing (R²): {{ $evaluation['Testing']['R2'] }}</li>
+                                <li>MAPE Testing: {{ $evaluation['Testing']['MAPE'] }}</li>
                             </ul>
                         @else
                             <p>Belum ada hasil evaluasi yang tersedia.</p>
